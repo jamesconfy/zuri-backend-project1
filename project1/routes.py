@@ -1,6 +1,6 @@
-from flask import current_app as app
+from flask import current_app as app, jsonify
 
 @app.route("/")
 @app.route("/home")
 def home():
-    return "Hello World!"
+    return jsonify("Hello World!")
