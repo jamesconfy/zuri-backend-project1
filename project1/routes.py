@@ -11,6 +11,7 @@ def home():
     }
     
     response = make_response(res)
+    response.access_control_allow_headers = "*"
     response.status_code = 200
     response.content_type = "application/json"
 
