@@ -1,6 +1,7 @@
 import json
 from werkzeug.exceptions import HTTPException
 from flask import current_app as app, make_response, request, abort
+from playground import gptFunc
 
 
 @app.route("/")
@@ -25,8 +26,9 @@ def operation():
     if request.method == 'POST' and request.is_json:
         opsList = ['addition', 'subtraction', 'multiplication']
         operand = request.json.get('operation_type')
-        x = request.json.get('x')
-        y = request.json.get('y')
+        x = request.json.get('x', None)
+        y = request.json.get('y', None)
+
         if operand in opsList:
             if operand == 'addition':
                 result = x + y
@@ -41,11 +43,27 @@ def operation():
                 "operation_type": operand
             }
 
-            response = make_response(res, 200)
+            response = make_response(res)
+            response.content_type = "application/json"
+            response.status_code = 200
             return response
+            
+        if x == None or y == None and operand != None:
+            oper, result = gptFunc(prompt=operand)
+
+            res = {
+                "slackUsername": "everybody",
+                "result": result,
+                "operation_type": oper
+            }
+
+            response = make_response(res)
+            response.content_type = "application/json"
+            response.status_code = 200
+            return response
+
         else:
             abort(400, description="Check the operation_type")
-
     else:
         abort(400, description="application/json is required!")
 
