@@ -6,12 +6,12 @@ load_dotenv(".env")
 
 openai.api_key = os.environ.get("OPEN_AI_KEY")
 prompt = "Can you please add the following numbers together 13 and 25. minus 10 from the result"
-operations = ['add', 'addition', 'plus', 'subtract', 'subtraction', 'minus', 'multiply', 'product', 'multiplication', 'divide', 'division', 'over']
+operations = ['add', 'addition', 'plus', 'sum', '+', 'subtract', 'subtraction', 'minus', '-', 'multiply', 'product', 'multiplication', '*', 'divide', 'division', '/']
 operationsDict = {
-    'addition': ['add', 'addition', 'plus'],
-    'subtraction': ['subtract', 'subtraction', 'minus'],
-    'multiplication': ['multiply', 'product', 'multiplication'],
-    'division': ['divide', 'division', 'over']
+    'addition': ['add', 'addition', 'plus', 'sum', '+'],
+    'subtraction': ['subtract', 'subtraction', 'minus', '-'],
+    'multiplication': ['multiply', 'product', 'multiplication', '*'],
+    'division': ['divide', 'division', '/']
 }
 
 def gptFunc(prompt=prompt, operations=operations):
